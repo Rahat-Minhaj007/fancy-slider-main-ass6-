@@ -24,12 +24,14 @@ const showImages = (images) => {
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.previewURL}") src="${image.previewURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
+   
   })
 
 }
 
 const getImages = (query) => {
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
+  
     .then(response => response.json())
     .then(data => showImages(data.hits))
     .catch(err => console.log(err))
@@ -68,6 +70,10 @@ const createSlider = () => {
   // hide image aria
   imagesArea.style.display = 'none';
   const duration = document.getElementById('duration').value || 1000;
+  if (duration<0){
+    alert("SORRY SIR, YOU HAVE TO INPUT A POSITIVE VALUE");
+  }
+ else{
   sliders.forEach(slide => {
     let item = document.createElement('div')
     item.className = "slider-item";
@@ -81,6 +87,7 @@ const createSlider = () => {
     slideIndex++;
     changeSlide(slideIndex);
   }, duration);
+ }
 }
 
 // change slider index 
@@ -121,4 +128,3 @@ sliderBtn.addEventListener('click', function () {
   createSlider()
 })
 
-// console .log("Hello");
