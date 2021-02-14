@@ -58,10 +58,11 @@ const selectItem = (event, img) => {
 
 
   let item = sliders.indexOf(img);
+ console.log(sliders);
   if (item === -1) {
     sliders.push(img);
   } else {
-    sliders.pop(img);
+    sliders.splice(item,1);
   }
 }
 var timer
@@ -78,7 +79,9 @@ const createSlider = () => {
   prevNext.innerHTML = ` 
   <span class="prev" onclick="changeItem(-1)"><i class="fas fa-chevron-left"></i></span>
   <span class="next" onclick="changeItem(1)"><i class="fas fa-chevron-right"></i></span>
+
   `;
+  
 
   sliderContainer.appendChild(prevNext)
   document.querySelector('.main').style.display = 'block';
@@ -88,13 +91,17 @@ const createSlider = () => {
   // Interval Value Can't be Negative ,That part fixed
   if (duration > 0) {
     sliders.forEach(slide => {
+     
       let item = document.createElement('div')
       item.className = "slider-item";
       item.innerHTML = `<img class="w-100"
       src="${slide}"
-      alt="">`;
-      sliderContainer.appendChild(item)
+      alt="">
       
+      
+      `;
+      sliderContainer.appendChild(item)
+      toggleSpinner();
     })
     changeSlide(0)
     timer = setInterval(function () {
@@ -161,8 +168,14 @@ const toggleSpinner = () => {
 
   const spinner = document.getElementById("loading-spinner");
   const images = document.getElementById("images-container");
-  // const sliderSpinner = document.getElementById ("slide-spinner");
+  const sliderSpinner = document.getElementById ("vanish");
   spinner.classList.toggle("d-none");
   images.classList.toggle("d-none");
-  // sliderSpinner.classList.toggle("d-none");
+  sliderSpinner.classList.toggle("d-none");
 }
+
+document.getElementById("back").addEventListener("click",function(){
+  document.getElementById("vanish").style.display = "none"
+  document.getElementById("search").value = "";
+  
+})

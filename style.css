@@ -54,6 +54,10 @@ img {
 .main {
   display: none;
 }
+#back{
+  margin-left: 490px;
+  
+}
 
 @media (max-width: 767px) {
   .justify-content-around.align-items-center.mt-3.gallery-header.mb-2 {
