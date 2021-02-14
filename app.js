@@ -101,7 +101,7 @@ const createSlider = () => {
       
       `;
       sliderContainer.appendChild(item)
-      toggleSpinner();
+      
     })
     changeSlide(0)
     timer = setInterval(function () {
@@ -168,12 +168,13 @@ const toggleSpinner = () => {
 
   const spinner = document.getElementById("loading-spinner");
   const images = document.getElementById("images-container");
-  const sliderSpinner = document.getElementById ("vanish");
+ 
   spinner.classList.toggle("d-none");
   images.classList.toggle("d-none");
-  sliderSpinner.classList.toggle("d-none");
+ 
 }
 
+// Bonus Part
 document.getElementById("back").addEventListener("click",function(){
   document.getElementById("vanish").style.display = "none"
   document.getElementById("search").value = "";
