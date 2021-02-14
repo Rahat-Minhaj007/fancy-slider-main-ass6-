@@ -31,15 +31,22 @@ const showImages = (images) => {
 }
 
 const getImages = async (query) => {
+  if(query == ""){
+    
+      alert("SORRY SIR,AT FIRST WRITE YOUR EXPECTED KEYWORD ON THE SEARCH FIELD.");
+   }
 
-  const url = (`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
-  toggleSpinner()
+  else{
+    const url = (`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
+  
   // .then(response => response.json())  
   // .then(data => showImages(data.hits))
   // .catch(err => console.log(err))
+  toggleSpinner();
   const res = await fetch(url);
   const data = await res.json();
   showImages(data.hits);
+  }
 }
 
 let slideIndex = 0;
@@ -145,17 +152,11 @@ sliderBtn.addEventListener('click', function () {
   createSlider()
 })
 
-
+// spinner
 const toggleSpinner = () => {
 
   const spinner = document.getElementById("loading-spinner");
   const images = document.getElementById("images-container");
-
-  // console.log(spinner.classList);
-  // console.log(images.classList);
   spinner.classList.toggle("d-none");
   images.classList.toggle("d-none");
-
-
-
 }
