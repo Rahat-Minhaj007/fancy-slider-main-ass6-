@@ -26,28 +26,25 @@ const showImages = (images) => {
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
-    
+
   })
   toggleSpinner();
 }
 
 const getImages = async (query) => {
-  if(query == ""){
-    
-      alert("SORRY SIR,AT FIRST WRITE YOUR EXPECTED KEYWORD ON THE SEARCH FIELD.");
-   }
+  // Bonus part if search field empty then show an alert
+  if (query == "") {
 
-  else{
+    alert("SORRY SIR,AT FIRST WRITE YOUR EXPECTED KEYWORD ON THE SEARCH FIELD.");
+  }
+
+  else {
     const url = (`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
-  
-  // .then(response => response.json())  
-  // .then(data => showImages(data.hits))
-  // .catch(err => console.log(err))
-  toggleSpinner();
-  const res = await fetch(url);
-  const data = await res.json();
-  showImages(data.hits);
-  
+    toggleSpinner();
+    const res = await fetch(url);
+    const data = await res.json();
+    showImages(data.hits);
+
   }
 }
 
@@ -58,11 +55,11 @@ const selectItem = (event, img) => {
 
 
   let item = sliders.indexOf(img);
- console.log(sliders);
+  console.log(sliders);
   if (item === -1) {
     sliders.push(img);
   } else {
-    sliders.splice(item,1);
+    sliders.splice(item, 1);
   }
 }
 var timer
@@ -81,7 +78,7 @@ const createSlider = () => {
   <span class="next" onclick="changeItem(1)"><i class="fas fa-chevron-right"></i></span>
 
   `;
-  
+
 
   sliderContainer.appendChild(prevNext)
   document.querySelector('.main').style.display = 'block';
@@ -91,7 +88,7 @@ const createSlider = () => {
   // Interval Value Can't be Negative ,That part fixed
   if (duration > 0) {
     sliders.forEach(slide => {
-     
+
       let item = document.createElement('div')
       item.className = "slider-item";
       item.innerHTML = `<img class="w-100"
@@ -101,7 +98,7 @@ const createSlider = () => {
       
       `;
       sliderContainer.appendChild(item)
-      
+
     })
     changeSlide(0)
     timer = setInterval(function () {
@@ -110,7 +107,7 @@ const createSlider = () => {
     }, duration);
   }
   else {
-
+    document.getElementById('duration').value = "";
     imagesArea.style.display = 'block';
 
   }
@@ -142,7 +139,7 @@ const changeSlide = (index) => {
   items[index].style.display = "block"
 }
 
-// Enter Key activate 
+// (Enter) Key activated 
 
 document.getElementById('search')
   .addEventListener('keypress', function (event) {
@@ -163,20 +160,17 @@ sliderBtn.addEventListener('click', function () {
   createSlider()
 })
 
-// spinner
+//Bonus Part spinner
 const toggleSpinner = () => {
-
   const spinner = document.getElementById("loading-spinner");
   const images = document.getElementById("images-container");
- 
+
   spinner.classList.toggle("d-none");
   images.classList.toggle("d-none");
- 
 }
 
-// Bonus Part
-document.getElementById("back").addEventListener("click",function(){
+// Bonus Part Back Home
+document.getElementById("back").addEventListener("click", function () {
   document.getElementById("vanish").style.display = "none"
   document.getElementById("search").value = "";
-  
 })
