@@ -24,7 +24,7 @@ const showImages = (images) => {
   images.forEach(image => {
     let div = document.createElement('div');
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
-    div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.previewURL}") src="${image.previewURL}" alt="${image.tags}">`;
+    div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
     
   })
@@ -47,12 +47,12 @@ const getImages = async (query) => {
   const res = await fetch(url);
   const data = await res.json();
   showImages(data.hits);
+  
   }
 }
 
 let slideIndex = 0;
 const selectItem = (event, img) => {
-  console.log(img);
   let element = event.target;
   element.classList.toggle('added');
 
