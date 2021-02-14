@@ -15,6 +15,7 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 
 // show images 
 const showImages = (images) => {
+
   imagesArea.style.display = 'block';
   gallery.innerHTML = '';
 
@@ -51,14 +52,16 @@ const getImages = async (query) => {
 
 let slideIndex = 0;
 const selectItem = (event, img) => {
+  console.log(img);
   let element = event.target;
-  element.classList.add('added');
+  element.classList.toggle('added');
+
 
   let item = sliders.indexOf(img);
   if (item === -1) {
     sliders.push(img);
   } else {
-    alert('Hey, Already added !')
+    sliders.pop(img);
   }
 }
 var timer
@@ -91,6 +94,7 @@ const createSlider = () => {
       src="${slide}"
       alt="">`;
       sliderContainer.appendChild(item)
+      
     })
     changeSlide(0)
     timer = setInterval(function () {
@@ -157,6 +161,8 @@ const toggleSpinner = () => {
 
   const spinner = document.getElementById("loading-spinner");
   const images = document.getElementById("images-container");
+  // const sliderSpinner = document.getElementById ("slide-spinner");
   spinner.classList.toggle("d-none");
   images.classList.toggle("d-none");
+  // sliderSpinner.classList.toggle("d-none");
 }
